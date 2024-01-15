@@ -23,7 +23,7 @@
 
     
     
-    
+    // REMOVE THESE FUNCTIONS WHEN TESTING FOR REAL
     
     // gets string name of root spacer size from negArray[napple]
 function negSizeLookup(napple: number) {
@@ -54,9 +54,10 @@ function posSizeLookup(napple: number) {
       return bapple += 'xl';
   }
 }
+    //CHANGE URL BACK TO MSG
 
     //const url = msg.url;
-    const url = 'https://utopia.fyi/space/calculator/?c=320,18,1.2,1440,20,1.25,5,2,1440-768-2560&s=0.66|0.22,1.2|4|5,s-l&g=m,l,xl,10';
+    const url = 'https://utopia.fyi/space/calculator/?c=320,18,1.2,1440,20,1.25,5,2,1440-768-2560&s=0.66|0.22,1.2|4|5,s-l|m-xl&g=m,l,xl,10';
 
     // parse base values and assign variables
     let baseStart = (url.indexOf("c=") + 2);
@@ -68,31 +69,41 @@ function posSizeLookup(napple: number) {
     const minFontSize = parseInt(baseValueArray[1]); // 18
     const maxWidth = parseInt(baseValueArray[3]); // 1440
     const maxFontSize = parseInt(baseValueArray[4]); // 20
-    //const modeArray = baseValueArray[8].split('-'); // ["1440", "768", "2560"]
+    const modeArrayStrings = baseValueArray[8].split('-'); // ["1440", "768", "2560"]
+    const modeArrayNumbers = modeArrayStrings.map(Number);
 
     // parse multipliers into 2 arrays and assign variables
-    let multiplierStart = (url.indexOf("s=") + 3);
-    let multiplierEnd = (url.indexOf("g=") - 5);
+    let multiplierStart = (url.indexOf("s=") + 2);
+    let multiplierEnd = (url.indexOf("g=") - 1);
 
     const multiplierValueString = url.slice(multiplierStart, multiplierEnd); // [0.66|0.22,1.2|4|5]
     const multiplierValueArray = multiplierValueString.split(","); // [0.66|0.22], [1.2|4|5]
     const negArray = multiplierValueArray[0].split('|'); // [0.66], [0.22]
     const posArray = multiplierValueArray[1].split('|');
+    const customStepArray = multiplierValueArray[multiplierValueArray.length-1].split('|');
 
-    
-
-    // UNFINISHED FROM HERE ON ——————————————————————————————————————————————————————
+    // Grabs step name string from before or after hyphen for custom steps
+    console.log(customStepArray[1].split('-')[0], customStepArray[0].split('-')[1]);
 
     // Utopia root system variables and math
 
-    // Array that holds modes (either from UI or from URL)
-    const uiModes = [390, 500, 1440, 2560];
     let rootValues = [{name: 's', min: minFontSize, max: maxFontSize}];
+    let stepSizeValues = [];
+    let customStepValues = [];
 
-    // for (let i = 0; i > uiModes.length; i++) {
-    //   let fluidBp = (uiModes[i] - minWidth) / (maxWidth - minWidth);
-    // }
+    // UNFINISHED FROM HERE ON ——————————————————————————————————————————————————————
 
+
+    // // Use for modes
+    //let fluidBp = (modeArrayNumbers[i] - minWidth) / (maxWidth - minWidth);
+
+    // TO DO: Generate values for all the different modes
+
+    // for (let i = 0; i > modeArrayNumbers.length; i++) {
+
+    // THIS IS ALL GOOD
+
+      // For loop to create root values using the pos and neg arrays
       for (let i = 0; i < negArray.length; i++) {
         rootValues.push({
           name: negSizeLookup(i),
@@ -107,8 +118,22 @@ function posSizeLookup(napple: number) {
           max: maxFontSize * parseFloat(posArray[i]),
         });
       }
-   
-    console.log(rootValues);
+      // Sorts objects from small to large
+      rootValues.sort((a, b) => a.min - b.min);
+
+      //For loop to create step size values
+      for (let i = 0; i < (rootValues.length - 1); i++) {
+        stepSizeValues.push({
+          name: rootValues[i].name + '-' + rootValues[i + 1].name,
+          min: rootValues[i].min + (rootValues[i + 1].max - rootValues[i].min) * 0,
+          max: rootValues[i].min + (rootValues[i + 1].max - rootValues[i].min) * 1
+        })
+      }
+
+      // TO DO: Traverse through rootValues using the custom steps split names to find a match and create custom step values
+
+    // }
+
 
     // function createVariables(compSize: number){
     //   let fluidBp = (compSize - minWidth) / (maxWidth - minWidth);
