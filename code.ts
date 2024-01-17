@@ -83,13 +83,14 @@ function posSizeLookup(napple: number) {
     const customStepArray = multiplierValueArray[multiplierValueArray.length-1].split('|');
 
     // Grabs step name string from before or after hyphen for custom steps
-    console.log(customStepArray[1].split('-')[0], customStepArray[0].split('-')[1]);
+    // console.log(customStepArray[0].split('-')[0], customStepArray[0].split('-')[1]);
 
     // Utopia root system variables and math
 
     let rootValues = [{name: 's', min: minFontSize, max: maxFontSize}];
     let stepSizeValues = [];
-    let customStepValues = [];
+    let customRootValues: { name: string, min: number, max: number}[] = [];
+    let customSizeValues: { name: string, min: number, max: number}[] = [];
 
     // UNFINISHED FROM HERE ON ——————————————————————————————————————————————————————
 
@@ -100,6 +101,7 @@ function posSizeLookup(napple: number) {
     // TO DO: Generate values for all the different modes
 
     // for (let i = 0; i > modeArrayNumbers.length; i++) {
+    // }
 
     // THIS IS ALL GOOD
 
@@ -121,7 +123,7 @@ function posSizeLookup(napple: number) {
       // Sorts objects from small to large
       rootValues.sort((a, b) => a.min - b.min);
 
-      //For loop to create step size values
+      // For loop to create step size values
       for (let i = 0; i < (rootValues.length - 1); i++) {
         stepSizeValues.push({
           name: rootValues[i].name + '-' + rootValues[i + 1].name,
@@ -130,14 +132,40 @@ function posSizeLookup(napple: number) {
         })
       }
 
-      // TO DO: Traverse through rootValues using the custom steps split names to find a match and create custom step values
+      function customStepLookup(param1: string, param2: string) {
+        let customMin = 0;
+        let customMax = 0;
 
-    // }
+        for (let i = 0; i < rootValues.length; i++) {
+          if (rootValues[i].name == param1) {
+            customMin = rootValues[i].min;
+          } else if (rootValues[i].name == param2) {
+            customMax = rootValues[i].max;
+          }
+        }
+        customRootValues.push({
+          name: param1 + '-' + param2,
+          min: customMin,
+          max: customMax
+        })
+      }
+      
+      // For loop to grab custom size names and convert them to values
+      for (let i = 0; i < customStepArray.length; i++) {
+        // For each custom step, grab the name (s-l), split it, and run customStepLookup to get values
+        customStepLookup(customStepArray[i].split('-')[0], customStepArray[i].split('-')[1]);
+        customSizeValues.push({
+          name: customRootValues[i].name,
+          min: customRootValues[i].min + (customRootValues[i].max - customRootValues[i].min) * 0,
+          max: customRootValues[i].min + (customRootValues[i].max - customRootValues[i].min) * 1
+        })
+      }
+
+      console.log(customSizeValues);
 
 
     // function createVariables(compSize: number){
     //   let fluidBp = (compSize - minWidth) / (maxWidth - minWidth);
-
     // }
 
 
