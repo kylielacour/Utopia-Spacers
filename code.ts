@@ -132,7 +132,6 @@ figma.ui.onmessage = msg => {
     });
     if (utopiaCollectionObject.length > 0) {
       collection = utopiaCollectionObject[0];
-      figma.notify("Collection already exists!");
     } else {
       collection = figma.variables.createVariableCollection('Utopia Spacers');
       for (let i = 1; i < modeArrayStrings.length; i++) { //add modes from modeArray except first mode
@@ -143,18 +142,34 @@ figma.ui.onmessage = msg => {
 
     // Populate modes with variables
 
+    const localVariables = figma.variables.getLocalVariables('FLOAT'); // filters local variables by the 'FLOAT' type
+
     // In each loop, loop through the # of Variables in the mode
     //@ts-ignore
     for (let x = 0; x < masterVariablesArray[0].variables.length; x++) {
-      // Create a number variable for each loop and pull the correct name value
-      //@ts-ignore
-      let token = figma.variables.createVariable(masterVariablesArray[0].variables[x].name, collection.id, "FLOAT");
-      // For each variable created, loop again through the # of Modes
+      // Filter through all variables and return any that match the name of x
+      let specificVariable = localVariables.filter((localVariables) => {
+        return localVariables.name == masterVariablesArray[0].variables[x].name;
+      });
+      // If there's not a match, create the variable and fill the values
+      if (specificVariable.length < 1) {
+        // Create a number variable for each loop and pull the correct name value
+        //@ts-ignore
+        let token = figma.variables.createVariable(masterVariablesArray[0].variables[x].name, collection.id, "FLOAT");
+        // For each variable created, loop again through the # of Modes
         for (let y = 0; y < masterVariablesArray.length; y++) {
             // Pull the correct values from the object and populate each mode's values
             //@ts-ignore
             token.setValueForMode(collection.modes[y].modeId, masterVariablesArray[y].variables[x].value);
         }
+        // If there's a match, take that variable and update the values
+      } else {
+        for (let y = 0; y < masterVariablesArray.length; y++) {
+          // Pull the correct values from the object and populate each mode's values
+          //@ts-ignore
+          specificVariable[0].setValueForMode(collection.modes[y].modeId, masterVariablesArray[y].variables[x].value);
+        }
+      }
     }
 
 
