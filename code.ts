@@ -17,8 +17,13 @@ figma.ui.onmessage = msg => {
   // your HTML page is to use an object with a "type" property like this.
   if (msg.type === 'create-variables') {
     // https://utopia.fyi/space/calculator/?c=320,18,1.2,1440,20,1.25,5,2,1440-375-768-2560&s=0.66|0.22,1.2|4|5,s-l|m-xl&g=m,l,xl,10
+    // https://utopia.fyi/space/calculator/?c=320,18,1.2,2560,21,1.25,5,2,1442-375-768-2560&s=0.66%7C0.22%7C0.22,1.2%7C4%7C5%7C6%7C7%7C8%7C10,s-l%7Cm-xl%7C2xs-2xl&g=m,l,xl,10
+    // https://utopia.fyi/space/calculator/?c=320,18,1.2,2560,21,1.25,5,2,1441-375-768-2560&s=0.66|0.22|0.22,1.2|4|5|6|7|8|10,s-l|m-xl|2xs-2xl&g=m,l,xl,10
 
-    const url = msg.url;
+
+    let rawUrl = msg.url;
+    let url = rawUrl.replace(/%7C/gi, '|');
+    console.log(url);
 
     // parse base values and assign variables
     let baseStart = (url.indexOf("c=") + 2);
@@ -70,6 +75,31 @@ figma.ui.onmessage = msg => {
 
     // Sorts objects from small to large
     rootValues.sort((a, b) => a.min - b.min);
+
+    // Find which index number "xs" is in array
+    const isXs = (element: any) => element.name === "xs";
+    const xsIndex = rootValues.findIndex(isXs)
+    console.log(xsIndex);
+    // Sort everything before "xs" backwards
+    const sortBetween = (rootValues = [], start, end) => {
+      const part = rootValues.splice(start, end - start);
+      part.sort((b, a) => {
+       const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+       const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+       if (nameA < nameB) {
+         return -1;
+       }
+       if (nameA > nameB) {
+         return 1;
+       }
+     
+       // names must be equal
+       return 0;
+     });;
+      rootValues.splice(start, 0, ...part);
+   }
+   sortBetween(rootValues, 0, xsIndex);
+   console.log(rootValues);
 
     // For loop to create step size values
     for (let i = 0; i < (rootValues.length - 1); i++) {
