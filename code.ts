@@ -20,10 +20,17 @@ figma.ui.onmessage = msg => {
     // https://utopia.fyi/space/calculator/?c=320,18,1.2,2560,21,1.25,5,2,1442-375-768-2560&s=0.66%7C0.22%7C0.22,1.2%7C4%7C5%7C6%7C7%7C8%7C10,s-l%7Cm-xl%7C2xs-2xl&g=m,l,xl,10
     // https://utopia.fyi/space/calculator/?c=320,18,1.2,2560,21,1.25,5,2,1441-375-768-2560&s=0.66|0.22|0.22,1.2|4|5|6|7|8|10,s-l|m-xl|2xs-2xl&g=m,l,xl,10
 
+    let oldMinWidth = figma.root.getPluginData("minWidth");
+    let oldMaxWidth = figma.root.getPluginData("maxWidth");
+    let oldModeArrayStrings = figma.root.getPluginData("modeArrayStrings");
+    let oldNegArray = figma.root.getPluginData("negArray");
+    let oldPosArray = figma.root.getPluginData("posArray");
+    let oldCustomStepArray = figma.root.getPluginData("customStepArray");
+    let oldMinFontSize = figma.root.getPluginData("oldMinFontSize");
+    let oldMaxFontSize = figma.root.getPluginData("oldMaxFontSize");
 
     let rawUrl = msg.url;
     let url = rawUrl.replace(/%7C/gi, '|');
-    console.log(url);
 
     // parse base values and assign variables
     let baseStart = (url.indexOf("c=") + 2);
@@ -48,10 +55,20 @@ figma.ui.onmessage = msg => {
     const posArray = multiplierValueArray[1].split('|');
     const customStepArray = multiplierValueArray[multiplierValueArray.length-1].split('|');
 
+    // Store Info
+    figma.root.setPluginData("minWidth", minWidth.toString());
+    figma.root.setPluginData("maxWidth", maxWidth.toString());
+    figma.root.setPluginData("modeArrayStrings", modeArrayStrings.toString());
+    figma.root.setPluginData("negArray", negArray.toString());
+    figma.root.setPluginData("posArray", posArray.toString());
+    figma.root.setPluginData("customStepArray", customStepArray.toString());
+    figma.root.setPluginData("minFontSize", minFontSize.toString());
+    figma.root.setPluginData("maxFontSize", maxFontSize.toString());
+
     // CALCULATE UTOPIA VALUES FROM URL AND PLACE IN OBJECTS IN ARRAYS —————————————————————————————————————————————————————
 
     // Utopia root system variables and math
-    let rootValues = [{name: 's', min: minFontSize, max: maxFontSize}];
+    let rootValues: any = [{name: 's', min: minFontSize, max: maxFontSize}];
     let stepSizeValues = [];
     let customRootValues: { name: string, min: number, max: number}[] = [];
     let customSizeValues: { name: string, min: number, max: number}[] = [];
@@ -74,16 +91,15 @@ figma.ui.onmessage = msg => {
     }
 
     // Sorts objects from small to large
-    rootValues.sort((a, b) => a.min - b.min);
+    rootValues.sort((a: any, b: any) => a.min - b.min);
 
     // Find which index number "xs" is in array
     const isXs = (element: any) => element.name === "xs";
     const xsIndex = rootValues.findIndex(isXs)
-    console.log(xsIndex);
     // Sort everything before "xs" backwards
-    const sortBetween = (rootValues = [], start, end) => {
+    const sortBetween = (rootValues = [], start: number, end: number) => {
       const part = rootValues.splice(start, end - start);
-      part.sort((b, a) => {
+      part.sort((b: any, a: any) => {
        const nameA = a.name.toUpperCase(); // ignore upper and lowercase
        const nameB = b.name.toUpperCase(); // ignore upper and lowercase
        if (nameA < nameB) {
@@ -92,14 +108,13 @@ figma.ui.onmessage = msg => {
        if (nameA > nameB) {
          return 1;
        }
-     
        // names must be equal
        return 0;
      });;
       rootValues.splice(start, 0, ...part);
-   }
-   sortBetween(rootValues, 0, xsIndex);
-   console.log(rootValues);
+    }
+
+    sortBetween(rootValues, 0, xsIndex);
 
     // For loop to create step size values
     for (let i = 0; i < (rootValues.length - 1); i++) {
@@ -109,17 +124,20 @@ figma.ui.onmessage = msg => {
         max: rootValues[i].min + (rootValues[i + 1].max - rootValues[i].min) * 1
       })
     }
-      
-    // For loop to grab custom size names and convert them to values
-    for (let i = 0; i < customStepArray.length; i++) {
-      // For each custom step, grab the name (s-l), split it, and run customStepLookup to get values
-      customStepLookup(customStepArray[i].split('-')[0], customStepArray[i].split('-')[1]);
-      customSizeValues.push({
-        name: customRootValues[i].name,
-        min: customRootValues[i].min + (customRootValues[i].max - customRootValues[i].min) * 0,
-        max: customRootValues[i].min + (customRootValues[i].max - customRootValues[i].min) * 1
-      })
+
+    if (customStepArray !== 0) {
+      // For loop to grab custom size names and convert them to values
+      for (let i = 0; i < customStepArray.length; i++) {
+        // For each custom step, grab the name (s-l), split it, and run customStepLookup to get values
+        customStepLookup(customStepArray[i].split('-')[0], customStepArray[i].split('-')[1]);
+        customSizeValues.push({
+          name: customRootValues[i].name,
+          min: customRootValues[i].min + (customRootValues[i].max - customRootValues[i].min) * 0,
+          max: customRootValues[i].min + (customRootValues[i].max - customRootValues[i].min) * 1
+        })
+      }
     }
+
     // Creates T-Shirt size variables for each mode
     for (let a = 0; a < modeArrayNumbers.length; a++) {
       let modeArray = [];
@@ -139,24 +157,26 @@ figma.ui.onmessage = msg => {
       }
       masterVariablesArray[a]['variables'] = modeArray;
     }
-    // Creates Custom size variables for each mode
-    for (let a = 0; a < modeArrayNumbers.length; a++) {
-      let modeArray: any = [];
-      Object.assign(modeArray, masterVariablesArray[a].variables);
-      for (let b = 0; b < customSizeValues.length; b++) {
-        let value = calculateModeValues(customSizeValues[b], modeArrayNumbers[a]);
-        modeArray.push(value);
+
+    if (customStepArray !== 0 && customStepArray.toString() !== oldCustomStepArray) {
+      // Creates Custom size variables for each mode
+      for (let a = 0; a < modeArrayNumbers.length; a++) {
+        let modeArray: any = [];
+        Object.assign(modeArray, masterVariablesArray[a].variables);
+        for (let b = 0; b < customSizeValues.length; b++) {
+          let value = calculateModeValues(customSizeValues[b], modeArrayNumbers[a]);
+          modeArray.push(value);
+        }
+        masterVariablesArray[a]['variables'] = modeArray;
       }
-      masterVariablesArray[a]['variables'] = modeArray;
     }
-   // masterVariablesArray[0].variables[6].value;
 
     // CREATE COLLECTION, MODES, & VARIABLES ——————————————————————————————————————————————————————————————————————————————————————————
 
     // Check if "Utopia Spacers" collection already exists. If not, create it and populate modes.
     
     const allCollections = figma.variables.getLocalVariableCollections();
-    let collection
+    let collection: any;
     let utopiaCollectionObject = allCollections.filter((allCollections) => {
       return allCollections.name.includes('Utopia Spacers');
     });
@@ -179,6 +199,7 @@ figma.ui.onmessage = msg => {
     for (let x = 0; x < masterVariablesArray[0].variables.length; x++) {
       // Filter through all variables and return any that match the name of x
       let specificVariable = localVariables.filter((localVariables) => {
+        //@ts-ignore
         return localVariables.name == masterVariablesArray[0].variables[x].name;
       });
       // If there's not a match, create the variable and fill the values
@@ -202,6 +223,26 @@ figma.ui.onmessage = msg => {
       }
     }
 
+    // Delete unused variables ————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+    // const newLocalVariables = figma.variables.getLocalVariables('FLOAT');
+    // // Gets only variables in the Utopia Spacers collection
+    // const utopiaVariables = newLocalVariables.filter((newLocalVariables) => {
+    //   return newLocalVariables.variableCollectionId === collection.id;
+    // });
+
+    // // Loop through filtered variables, remove any that have a name match from the utopiaVariables array
+    // for (let i = 0; i < utopiaVariables.length; i++) {
+    //   for (let x = 0; x < masterVariablesArray[0].variables.length; x++) {
+    //     if (utopiaVariables[i].name === masterVariablesArray[0].variables[x].name) {
+    //       utopiaVariables.splice(i, 1);
+    //     } 
+    //   }
+    // }
+    // // Loop through new utopiaVariables and remove each one from Figma
+    // for (let i = 0; i < utopiaVariables.length; i++) {
+    //   utopiaVariables[i].remove();
+    // }
 
     // Make sure to close the plugin when you're done. Otherwise the plugin will
     // keep running, which shows the cancel button at the bottom of the screen.
@@ -247,7 +288,8 @@ figma.ui.onmessage = msg => {
       for (let i = 0; i < rootValues.length; i++) {
         if (rootValues[i].name == param1) {
           customMin = rootValues[i].min;
-        } else if (rootValues[i].name == param2) {
+        }
+        if (rootValues[i].name == param2) {
           customMax = rootValues[i].max;
         }
       }
