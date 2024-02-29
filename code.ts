@@ -15,7 +15,7 @@ interface UtopiaStep {
   max: number;
 }
 
-type UtopiaVariableType = 'Base' | 'Step' | 'Custom'
+type UtopiaVariableType = "Base" | "Step" | "Custom";
 
 interface FigmaVariable {
   name: string;
@@ -180,15 +180,15 @@ figma.ui.onmessage = (msg: {
     // For each mode, calculate the values for each variable type
     modes.forEach((mode) => {
       let modeRootValues = rootValues.map((rootValue) =>
-        calculateModeValues(rootValue, mode, 'Base')
+        calculateModeValues(rootValue, mode, "Base")
       );
 
       let modeStepValues = stepSizeValues.map((stepSizeValue) =>
-        calculateModeValues(stepSizeValue, mode, 'Step')
+        calculateModeValues(stepSizeValue, mode, "Step")
       );
 
       let modeCustomStepValues = customSizeValues.map((customSizeValue) =>
-        calculateModeValues(customSizeValue, mode, 'Custom')
+        calculateModeValues(customSizeValue, mode, "Custom")
       );
 
       masterVariablesArray.push({
@@ -228,12 +228,16 @@ figma.ui.onmessage = (msg: {
     let localVariables = figma.variables.getLocalVariables("FLOAT"); // filters local variables by the 'FLOAT' type
 
     // For every mode
-    masterVariablesArray.forEach((config) => {
+    masterVariablesArray.forEach((config, i) => {
       // For every variable in the mode
       config.variables.forEach((variable) => {
         // Get the mode that was created in Figma
-        let collectionMode = utopiaCollection.modes.find(
-          (mode) => mode.name === config.mode
+        let collectionMode = utopiaCollection.modes[i];
+
+        // Update mode name if needed
+        utopiaCollection.renameMode(
+          utopiaCollection.modes[i].modeId,
+          config.mode
         );
         if (!collectionMode)
           throw new Error(`No mode found for mode ${config.mode}`);
@@ -266,32 +270,23 @@ figma.ui.onmessage = (msg: {
       });
     });
 
-    // Loop through 
-
     // Delete unused variables ————————————————————————————————————————————————————————————————————————————————————————————————————————————
-    localVariables = figma.variables.getLocalVariables("FLOAT");
 
-    
+    let newLocalVariables = figma.variables
+      .getLocalVariables("FLOAT")
+      .filter(
+        (variable) => variable.variableCollectionId === utopiaCollection.id
+      );
 
+    newLocalVariables.forEach((variable) => {
+      let existingVariable = masterVariablesArray[0].variables.find(
+        (configVariable) => configVariable.name === variable.name
+      );
+      if (!existingVariable) {
+        variable.remove();
+      }
+    });
 
-    // const newLocalVariables = figma.variables.getLocalVariables('FLOAT');
-    // // Gets only variables in the Utopia Spacers collection
-    // const utopiaVariables = newLocalVariables.filter((newLocalVariables) => {
-    //   return newLocalVariables.variableCollectionId === collection.id;
-    // });
-
-    // // Loop through filtered variables, remove any that have a name match from the utopiaVariables array
-    // for (let i = 0; i < utopiaVariables.length; i++) {
-    //   for (let x = 0; x < masterVariablesArray[0].variables.length; x++) {
-    //     if (utopiaVariables[i].name === masterVariablesArray[0].variables[x].name) {
-    //       utopiaVariables.splice(i, 1);
-    //     }
-    //   }
-    // }
-    // // Loop through new utopiaVariables and remove each one from Figma
-    // for (let i = 0; i < utopiaVariables.length; i++) {
-    //   utopiaVariables[i].remove();
-    // }
 
     // Make sure to close the plugin when you're done. Otherwise the plugin will
     // keep running, which shows the cancel button at the bottom of the screen.
@@ -337,7 +332,7 @@ figma.ui.onmessage = (msg: {
         fluidBp = 1;
       }
       return {
-        name: utopiaType + '/' + variable.name,
+        name: utopiaType + "/" + variable.name,
         value: Math.round(
           variable.min + (variable.max - variable.min) * fluidBp
         ),
