@@ -70,9 +70,9 @@ figma.ui.onmessage = (msg: {
     const maxWidth = parseInt(baseValues[3]); // 1440
     const maxFontSize = parseInt(baseValues[4]); // 20
     const modes = baseValues[8].split("-").map(Number); // [1440, 375, 768, 2560]
-    modes.sort((a, b) => a - b); // Sorts modes from small to large
 
     const negArray = multiplierValues[0].split("|").map(Number); // [0.66, 0.22]
+    negArray.reverse();
     const posArray = multiplierValues[1].split("|").map(Number); // [1.2, 4, 5]
     const customStepArray = multiplierValues[2].split("|"); // ['s-l', 'm-xl']
 
@@ -89,27 +89,28 @@ figma.ui.onmessage = (msg: {
     // CALCULATE UTOPIA VALUES FROM URL AND PLACE IN OBJECTS IN ARRAYS —————————————————————————————————————————————————————
 
     // Utopia root system variables and math
-    // "s" always has a multiplier of 1
-    let rootValues: UtopiaStep[] = [
-      { name: "s", min: minFontSize, max: maxFontSize },
-    ];
+    let rootValues: UtopiaStep[] = [];
     let stepSizeValues: UtopiaStep[] = [];
     let customSizeValues: UtopiaStep[] = [];
     let masterVariablesArray: FigmaConfig[] = []; // { mode: '375', variables: { name: 'xs', value: 12} }
-
+    
     // For loop to create root values using the pos and neg arrays
     negArray.forEach((multiplier, i) =>
-      rootValues.push({
-        name: negSizeLookup(i),
-        min: minFontSize * multiplier,
-        max: maxFontSize * multiplier,
-      })
+    rootValues.push({
+      name: negSizeLookup(i),
+      min: Math.round(minFontSize * multiplier),
+      max: Math.round(maxFontSize * multiplier),
+    })
     );
+    
+    // "s" always has a multiplier of 1
+    rootValues.push({ name: "s", min: minFontSize, max: maxFontSize });
+
     posArray.forEach((multiplier, i) =>
       rootValues.push({
         name: posSizeLookup(i),
-        min: minFontSize * multiplier,
-        max: maxFontSize * multiplier,
+        min: Math.round(minFontSize * multiplier),
+        max: Math.round(maxFontSize * multiplier),
       })
     );
 
@@ -140,8 +141,7 @@ figma.ui.onmessage = (msg: {
       });
       rootValues.splice(start, 0, ...part);
     };
-    sortBetween(rootValues, 0, mIndex);
-
+    // sortBetween(rootValues, 0, mIndex);
 
     // Create step size values, e.g. xs-s, s-m, m-l, l-xl, etc.
     rootValues.forEach((rootValue, i, rootValues) => {
@@ -290,12 +290,13 @@ figma.ui.onmessage = (msg: {
 
     // gets string name of root spacer size from negArray[napple]
     function negSizeLookup(napple: number) {
-      if (napple !== 0) {
-        let strapon = napple + 1;
+      let distanceFromXs = negArray.length - napple;
+      if (distanceFromXs === 1) {
+        return "xs";
+      } else {
+        let strapon = distanceFromXs;
         let bapple = strapon.toString();
         return (bapple += "xs");
-      } else {
-        return "xs";
       }
     }
 
