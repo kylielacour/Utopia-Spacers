@@ -93,16 +93,16 @@ figma.ui.onmessage = (msg: {
     let stepSizeValues: UtopiaStep[] = [];
     let customSizeValues: UtopiaStep[] = [];
     let masterVariablesArray: FigmaConfig[] = []; // { mode: '375', variables: { name: 'xs', value: 12} }
-    
+
     // For loop to create root values using the pos and neg arrays
     negArray.forEach((multiplier, i) =>
-    rootValues.push({
-      name: negSizeLookup(i),
-      min: Math.round(minFontSize * multiplier),
-      max: Math.round(maxFontSize * multiplier),
-    })
+      rootValues.push({
+        name: negSizeLookup(i),
+        min: Math.round(minFontSize * multiplier),
+        max: Math.round(maxFontSize * multiplier),
+      })
     );
-    
+
     // "s" always has a multiplier of 1
     rootValues.push({ name: "s", min: minFontSize, max: maxFontSize });
 
@@ -253,6 +253,9 @@ figma.ui.onmessage = (msg: {
             utopiaCollection.id,
             "FLOAT"
           );
+
+          token.setVariableCodeSyntax("WEB", `var(--space-${variable.name})`);
+
           token.setValueForMode(collectionMode.modeId, variable.value);
 
           // Refetch the variables to include the newly created one
