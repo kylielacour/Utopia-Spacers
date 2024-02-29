@@ -15,6 +15,8 @@ interface UtopiaStep {
   max: number;
 }
 
+type UtopiaVariableType = 'Base' | 'Step' | 'Custom'
+
 interface FigmaVariable {
   name: string;
   value: number;
@@ -178,15 +180,15 @@ figma.ui.onmessage = (msg: {
     // For each mode, calculate the values for each variable type
     modes.forEach((mode) => {
       let modeRootValues = rootValues.map((rootValue) =>
-        calculateModeValues(rootValue, mode)
+        calculateModeValues(rootValue, mode, 'Base')
       );
 
       let modeStepValues = stepSizeValues.map((stepSizeValue) =>
-        calculateModeValues(stepSizeValue, mode)
+        calculateModeValues(stepSizeValue, mode, 'Step')
       );
 
       let modeCustomStepValues = customSizeValues.map((customSizeValue) =>
-        calculateModeValues(customSizeValue, mode)
+        calculateModeValues(customSizeValue, mode, 'Custom')
       );
 
       masterVariablesArray.push({
@@ -264,7 +266,13 @@ figma.ui.onmessage = (msg: {
       });
     });
 
+    // Loop through 
+
     // Delete unused variables ————————————————————————————————————————————————————————————————————————————————————————————————————————————
+    localVariables = figma.variables.getLocalVariables("FLOAT");
+
+    
+
 
     // const newLocalVariables = figma.variables.getLocalVariables('FLOAT');
     // // Gets only variables in the Utopia Spacers collection
@@ -321,14 +329,15 @@ figma.ui.onmessage = (msg: {
     // Returns calculated variable values based on mode as fluidBp
     function calculateModeValues(
       variable: UtopiaStep,
-      mode: number
+      mode: number,
+      utopiaType: UtopiaVariableType
     ): FigmaVariable {
       let fluidBp = (mode - minWidth) / (maxWidth - minWidth);
       if (fluidBp > 1) {
         fluidBp = 1;
       }
       return {
-        name: variable.name,
+        name: utopiaType + '/' + variable.name,
         value: Math.round(
           variable.min + (variable.max - variable.min) * fluidBp
         ),
