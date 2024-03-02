@@ -7,7 +7,7 @@
 // full browser environment (See https://www.figma.com/plugin-docs/how-plugins-run).
 
 // This shows the HTML page in "ui.html".
-figma.showUI(__html__);
+figma.showUI(__html__,{width: 250, height: 350});
 
 interface UtopiaStep {
   name: string;

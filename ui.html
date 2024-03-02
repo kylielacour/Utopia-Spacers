@@ -1,105 +1,367 @@
 <div class="content">
-  <div class="header">
-    <h2>Utopia Variable Creator</h2>
+  <div class="main">
+
+    <!--Main URL-->
+    <div class="url-div">
+      <div class="label-icon-div">
+        <p class="url-label">URL</p>
+        <div class="tooltip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M5.54834 11.5483C4.78923 11.5483 4.07487 11.4033 3.40527 11.1133C2.73568 10.8268 2.14486 10.4276 1.63281 9.91553C1.12435 9.40348 0.725098 8.81266 0.435059 8.14307C0.14502 7.47347 0 6.75911 0 6C0 5.24089 0.14502 4.52653 0.435059 3.85693C0.725098 3.18734 1.12435 2.59831 1.63281 2.08984C2.14486 1.5778 2.73389 1.17676 3.3999 0.886719C4.0695 0.59668 4.78385 0.45166 5.54297 0.45166C6.30566 0.45166 7.02181 0.59668 7.69141 0.886719C8.361 1.17676 8.95182 1.5778 9.46387 2.08984C9.97591 2.59831 10.377 3.18734 10.667 3.85693C10.957 4.52653 11.1021 5.24089 11.1021 6C11.1021 6.75911 10.957 7.47347 10.667 8.14307C10.377 8.81266 9.97591 9.40348 9.46387 9.91553C8.95182 10.4276 8.361 10.8268 7.69141 11.1133C7.02181 11.4033 6.30745 11.5483 5.54834 11.5483ZM5.54834 10.4526C6.16781 10.4526 6.74609 10.3381 7.2832 10.1089C7.82031 9.87972 8.29297 9.56104 8.70117 9.15283C9.10938 8.74463 9.42806 8.27197 9.65723 7.73486C9.88639 7.19775 10.001 6.61947 10.001 6C10.001 5.38411 9.88639 4.80762 9.65723 4.27051C9.42806 3.72982 9.10938 3.25537 8.70117 2.84717C8.29297 2.43896 7.81852 2.12028 7.27783 1.89111C6.74072 1.66195 6.16243 1.54736 5.54297 1.54736C4.92708 1.54736 4.3488 1.66195 3.80811 1.89111C3.271 2.12028 2.80013 2.43896 2.39551 2.84717C1.99089 3.25537 1.67399 3.72982 1.44482 4.27051C1.21566 4.80762 1.10107 5.38411 1.10107 6C1.10107 6.61947 1.21566 7.19775 1.44482 7.73486C1.67399 8.27197 1.99089 8.74463 2.39551 9.15283C2.80371 9.56104 3.27637 9.87972 3.81348 10.1089C4.35417 10.3381 4.93245 10.4526 5.54834 10.4526ZM5.43018 7.06885C5.09001 7.06885 4.91992 6.91667 4.91992 6.6123C4.91992 6.60156 4.91992 6.59082 4.91992 6.58008C4.91992 6.56934 4.91992 6.56038 4.91992 6.55322C4.91992 6.30615 4.98079 6.10563 5.10254 5.95166C5.22786 5.79769 5.38721 5.65446 5.58057 5.52197C5.80973 5.36442 5.97982 5.23014 6.09082 5.11914C6.2054 5.00814 6.2627 4.86849 6.2627 4.7002C6.2627 4.51758 6.19466 4.36898 6.05859 4.25439C5.92611 4.13623 5.75065 4.07715 5.53223 4.07715C5.4248 4.07715 5.32454 4.09505 5.23145 4.13086C5.14193 4.16667 5.05778 4.21859 4.979 4.28662C4.90381 4.35107 4.83577 4.43164 4.7749 4.52832L4.68896 4.64111C4.63883 4.70915 4.57796 4.76286 4.50635 4.80225C4.43831 4.84163 4.35596 4.86133 4.25928 4.86133C4.14827 4.86133 4.0498 4.82373 3.96387 4.74854C3.87793 4.67334 3.83496 4.57129 3.83496 4.44238C3.83496 4.39225 3.83854 4.3457 3.8457 4.30273C3.85645 4.25618 3.87077 4.20964 3.88867 4.16309C3.97103 3.91243 4.16081 3.6958 4.45801 3.51318C4.75879 3.33057 5.14014 3.23926 5.60205 3.23926C5.91715 3.23926 6.20719 3.29476 6.47217 3.40576C6.74072 3.51676 6.95557 3.67611 7.1167 3.88379C7.27783 4.09147 7.3584 4.34391 7.3584 4.64111C7.3584 4.95622 7.27783 5.20508 7.1167 5.3877C6.95915 5.57031 6.74967 5.74935 6.48828 5.9248C6.30924 6.03939 6.17318 6.1486 6.08008 6.25244C5.98698 6.35628 5.93685 6.47803 5.92969 6.61768C5.92969 6.62484 5.92969 6.63558 5.92969 6.6499C5.92969 6.66064 5.9279 6.67139 5.92432 6.68213C5.91715 6.78955 5.86882 6.88086 5.7793 6.95605C5.69336 7.03125 5.57699 7.06885 5.43018 7.06885ZM5.41943 8.71777C5.24756 8.71777 5.09896 8.66227 4.97363 8.55127C4.85189 8.43669 4.79102 8.29525 4.79102 8.12695C4.79102 7.95866 4.85189 7.81901 4.97363 7.70801C5.09538 7.59342 5.24398 7.53613 5.41943 7.53613C5.59489 7.53613 5.74349 7.59163 5.86523 7.70264C5.98698 7.81364 6.04785 7.95508 6.04785 8.12695C6.04785 8.29883 5.98698 8.44027 5.86523 8.55127C5.74349 8.66227 5.59489 8.71777 5.41943 8.71777Z" fill="#0ACF84"/>
+          </svg>
+          <span class="tooltiptext">Create your spacer system using the <a href="https://utopia.fyi/space/calculator">Utopia Calculator</a>, then copy/paste the URL here to generate Figma variables.</span>
+        </div>
+      </div>
+      <input class="input" id="url" placeholder="Paste here" value="">
+      <div id="rootvalues">
+        <div class="root-row">
+          <span class="root-label">minWidth:</span><span class="root-value" id="minWidth"></span>
+        </div>
+        <div class="root-row">
+          <span class="root-label">maxWidth:</span><span class="root-value" id="maxWidth"></span>
+        </div>
+        <div class="root-row">
+          <span class="root-label">minSize:</span><span class="root-value" id="minSize"></span>
+        </div>
+        <div class="root-row">
+          <span class="root-label">maxSize:</span><span class="root-value" id="maxSize"></span>
+        </div>
+        <div class="root-row">
+          <span class="root-label">positiveSteps:</span><span class="root-value" id="positiveSteps"></span>
+        </div>
+        <div class="root-row" id="negativeSteps-label">
+          <span class="root-label">negativeSteps:</span><span class="root-value" id="negativeSteps"></span>
+        </div>
+        <div class="root-row" id="customSteps-label">
+          <span class="root-label">customSteps:</span><span class="root-value" id="customSteps"></span>
+        </div>
+      </div>
+    </div>
+
+    <!--Clamp URL-->
+    <div class="url-div">
+      <div class="label-icon-div">
+        <p class="url-label">Clamp URL</p>
+        <div class="delete"></div>
+      </div>
+      <input class="input" id="url" placeholder="Paste here" value="">
+      <div id="rootvalues">
+        <div class="root-row">
+          <span class="root-label">pairs:</span><span class="root-value" id="pairs"></span>
+        </div>
+        <div class="root-row" id="prefix-label">
+          <span class="root-label">prefix:</span><span class="root-value" id="prefix"></span>
+        </div>
+      </div>
+    </div>
+    
+    <!--Clamp Link & Button-->
+    <div class="clamp-link">
+      <a href="placeholder">Add clamp URL</a>
+      <div class="tooltip">
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M5.54834 11.5483C4.78923 11.5483 4.07487 11.4033 3.40527 11.1133C2.73568 10.8268 2.14486 10.4276 1.63281 9.91553C1.12435 9.40348 0.725098 8.81266 0.435059 8.14307C0.14502 7.47347 0 6.75911 0 6C0 5.24089 0.14502 4.52653 0.435059 3.85693C0.725098 3.18734 1.12435 2.59831 1.63281 2.08984C2.14486 1.5778 2.73389 1.17676 3.3999 0.886719C4.0695 0.59668 4.78385 0.45166 5.54297 0.45166C6.30566 0.45166 7.02181 0.59668 7.69141 0.886719C8.361 1.17676 8.95182 1.5778 9.46387 2.08984C9.97591 2.59831 10.377 3.18734 10.667 3.85693C10.957 4.52653 11.1021 5.24089 11.1021 6C11.1021 6.75911 10.957 7.47347 10.667 8.14307C10.377 8.81266 9.97591 9.40348 9.46387 9.91553C8.95182 10.4276 8.361 10.8268 7.69141 11.1133C7.02181 11.4033 6.30745 11.5483 5.54834 11.5483ZM5.54834 10.4526C6.16781 10.4526 6.74609 10.3381 7.2832 10.1089C7.82031 9.87972 8.29297 9.56104 8.70117 9.15283C9.10938 8.74463 9.42806 8.27197 9.65723 7.73486C9.88639 7.19775 10.001 6.61947 10.001 6C10.001 5.38411 9.88639 4.80762 9.65723 4.27051C9.42806 3.72982 9.10938 3.25537 8.70117 2.84717C8.29297 2.43896 7.81852 2.12028 7.27783 1.89111C6.74072 1.66195 6.16243 1.54736 5.54297 1.54736C4.92708 1.54736 4.3488 1.66195 3.80811 1.89111C3.271 2.12028 2.80013 2.43896 2.39551 2.84717C1.99089 3.25537 1.67399 3.72982 1.44482 4.27051C1.21566 4.80762 1.10107 5.38411 1.10107 6C1.10107 6.61947 1.21566 7.19775 1.44482 7.73486C1.67399 8.27197 1.99089 8.74463 2.39551 9.15283C2.80371 9.56104 3.27637 9.87972 3.81348 10.1089C4.35417 10.3381 4.93245 10.4526 5.54834 10.4526ZM5.43018 7.06885C5.09001 7.06885 4.91992 6.91667 4.91992 6.6123C4.91992 6.60156 4.91992 6.59082 4.91992 6.58008C4.91992 6.56934 4.91992 6.56038 4.91992 6.55322C4.91992 6.30615 4.98079 6.10563 5.10254 5.95166C5.22786 5.79769 5.38721 5.65446 5.58057 5.52197C5.80973 5.36442 5.97982 5.23014 6.09082 5.11914C6.2054 5.00814 6.2627 4.86849 6.2627 4.7002C6.2627 4.51758 6.19466 4.36898 6.05859 4.25439C5.92611 4.13623 5.75065 4.07715 5.53223 4.07715C5.4248 4.07715 5.32454 4.09505 5.23145 4.13086C5.14193 4.16667 5.05778 4.21859 4.979 4.28662C4.90381 4.35107 4.83577 4.43164 4.7749 4.52832L4.68896 4.64111C4.63883 4.70915 4.57796 4.76286 4.50635 4.80225C4.43831 4.84163 4.35596 4.86133 4.25928 4.86133C4.14827 4.86133 4.0498 4.82373 3.96387 4.74854C3.87793 4.67334 3.83496 4.57129 3.83496 4.44238C3.83496 4.39225 3.83854 4.3457 3.8457 4.30273C3.85645 4.25618 3.87077 4.20964 3.88867 4.16309C3.97103 3.91243 4.16081 3.6958 4.45801 3.51318C4.75879 3.33057 5.14014 3.23926 5.60205 3.23926C5.91715 3.23926 6.20719 3.29476 6.47217 3.40576C6.74072 3.51676 6.95557 3.67611 7.1167 3.88379C7.27783 4.09147 7.3584 4.34391 7.3584 4.64111C7.3584 4.95622 7.27783 5.20508 7.1167 5.3877C6.95915 5.57031 6.74967 5.74935 6.48828 5.9248C6.30924 6.03939 6.17318 6.1486 6.08008 6.25244C5.98698 6.35628 5.93685 6.47803 5.92969 6.61768C5.92969 6.62484 5.92969 6.63558 5.92969 6.6499C5.92969 6.66064 5.9279 6.67139 5.92432 6.68213C5.91715 6.78955 5.86882 6.88086 5.7793 6.95605C5.69336 7.03125 5.57699 7.06885 5.43018 7.06885ZM5.41943 8.71777C5.24756 8.71777 5.09896 8.66227 4.97363 8.55127C4.85189 8.43669 4.79102 8.29525 4.79102 8.12695C4.79102 7.95866 4.85189 7.81901 4.97363 7.70801C5.09538 7.59342 5.24398 7.53613 5.41943 7.53613C5.59489 7.53613 5.74349 7.59163 5.86523 7.70264C5.98698 7.81364 6.04785 7.95508 6.04785 8.12695C6.04785 8.29883 5.98698 8.44027 5.86523 8.55127C5.74349 8.66227 5.59489 8.71777 5.41943 8.71777Z" fill="#0ACF84"/>
+        <span class="tooltiptext">Use the <a href="https://utopia.fyi/clamp/calculator">Clamp Calculator</a> to generate more flexible spacers to add to your system.</span>
+      </svg>
+    </div>
+    </div>
   </div>
-  <div class="input-flex">
-    <p class="input-label">URL</p> 
-    <input class="input" id="url" placeholder="Paste here" value="">
+
+  <div class="button-bar">
+    <button id="generate-button" class="disabled">Generate Variables</button>
   </div>
-  <div class="buttons">
-    <button id="create">Create</button>
-    <button id="cancel">Cancel</button>
-  </div>
+
 </div>
 
 <script>
 
-document.getElementById('create').onclick = () => {
+document.getElementById('generate-button').onclick = () => {
   const url = document.getElementById('url').value;
   parent.postMessage({ pluginMessage: { type: 'create-variables', url } }, '*')
 }
 
-document.getElementById('cancel').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+document.getElementById('url').oninput = () => {
+  const rawUrl = document.getElementById('url').value;
+  if(rawUrl.includes('utopia.fyi/space/calculator')) {
+
+    var element = document.getElementById("rootvalues");
+    element.classList.add("show");
+
+    let url = rawUrl.replace(/%7C/gi, "|");
+
+    // parse base values and assign variables
+    let baseStart = url.indexOf("c=") + 2;
+    let baseEnd = url.indexOf("s=") - 1;
+    const baseValues = url.slice(baseStart, baseEnd).split(","); // [320, 18, 1.2, 1440, 20, 1.25, 5, 2, 1440-375-768-2560]
+
+    let multiplierStart = url.indexOf("s=") + 2;
+    let multiplierEnd = url.indexOf("g=") - 1;
+    const multiplierValues = url
+      .slice(multiplierStart, multiplierEnd)
+      .split(","); // [0.66|0.22, 1.2|4|5, s-l|m-xl]
+
+    const minWidth = parseInt(baseValues[0]); // 320
+    const minFontSize = parseInt(baseValues[1]); // 18
+    const maxWidth = parseInt(baseValues[3]); // 1440
+    const maxFontSize = parseInt(baseValues[4]); // 20
+    const modes = baseValues[8].split("-").map(Number); // [1440, 375, 768, 2560]
+
+    const negArray = multiplierValues[0].split("|").map(Number); // [0.66, 0.22]
+    negArray.reverse();
+    const posArray = multiplierValues[1].split("|").map(Number); // [1.2, 4, 5]
+    const customStepArray = multiplierValues[2].split("|"); // ['s-l', 'm-xl']
+
+    document.getElementById("minWidth").innerHTML = minWidth;
+    document.getElementById("maxWidth").innerHTML = maxWidth;
+    document.getElementById("minSize").innerHTML = minFontSize;
+    document.getElementById("maxSize").innerHTML = maxFontSize;
+    document.getElementById("positiveSteps").innerHTML = posArray;
+
+    if(negArray[0] > 0) {
+    document.getElementById("negativeSteps").innerHTML = negArray;
+    } else {
+    var element = document.getElementById("negativeSteps-label");
+    element.classList.add("hide");
+    }
+
+    if(customStepArray[0].length > 0) {
+    document.getElementById("customSteps").innerHTML = customStepArray;
+    } else {
+    var element = document.getElementById("customSteps-label");
+    element.classList.add("hide");
+    }
+
+    if(minWidth.length !== 0 && maxWidth.length !== 0 && minFontSize !== 0 && maxFontSize !== 0) {
+      var element = document.getElementById("generate-button");
+      element.classList.remove("disabled");
+      element.classList.add("enabled");
+    }
+  } else {
+    var element = document.getElementById("rootvalues");
+    element.classList.remove("show");
+  }
 }
+
 
 </script>
 
 <style>
-
   * {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
   }
-
   .content {
-    display: flex;
-    flex-flow: column nowrap;
-    gap: 20px;
-  }
-
-  .header {
-    background-color: #f5f5f5;
-    width: 100%;
-    flex-basis: auto;
-    padding: 10px 10px;
-  }
-
-  h2 {
-    font-family: 'Inter', system-ui, sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-  }
-  
-  .input-flex {
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: left;
-    gap: 15px;
-    margin-bottom: 10px;
-    padding: 0 30px;
-  }
-  .input-label {
+    align-items: flex-start;
+    gap: 0px;
+    border-radius: 2px;
+    background: #FFF;
     font-family: 'Inter', system-ui, sans-serif;
-    text-transform: uppercase;
-    font-weight: 500;
-    letter-spacing: .04em;
-    margin-bottom: 0;
+    /*
+    width: 250px;
+    height: 366px;
+    box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
+    margin: 0 auto;
+    margin-top: 100px; 
+    */
+  }
+  .main {
+    display: flex;
+    align-self: stretch;
+    padding: 15px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    flex: 1 0 0;
+  }
+  .url-div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+  }
+  .label-icon-div {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .url-label {
+    color: #000;
     font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 19.5px */
+    letter-spacing: .02em;
   }
   .input {
-    font-family: 'Inter', system-ui, sans-serif;
-    flex-basis: 100%;
-    padding: 6px;
-    border: 0px solid white;
-    border-bottom: 1px solid #000;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+    border-radius: 2px;
+    border: 1px solid #DDD;
+    background: #FFF;
+  }
+  .input:focus {
+    outline: none;
   }
   ::placeholder {
-    opacity: .7;
+    color: rgba(0, 0, 0, 0.50);
+    font-size: 13px;
     font-style: italic;
-    font-weight: 300;
+    font-weight: 400;
+    line-height: 110%; /* 14.3px */
   }
-
-  .buttons {
+  #rootvalues {
     display: flex;
-    flex-flow: row wrap;
+    padding: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    align-self: stretch;
+    background: #f7f7f7;
+    display: none;
+  }
+  .root-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+    font-size: 10px;
+  }
+  .root-label {
+    width: 90px;
+    color: #000;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%; /* 9.6px */
+  }
+  .root-value {
+    flex: 1 0 0;
+    color: #000;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%; /* 9.6px */
+  }
+  .show {
+    display: flex!important;
+  }
+  .hide {
+    display: none!important;
+  }
+  .clamp-link {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+  }
+  a {
+    color: #0ACF84;
+    border-bottom: 1px solid #0ACF84;
+    text-decoration: none;
+  }
+ a:hover {
+    border-bottom: none;
+  }
+  .button-bar {
+    display: flex;
+    padding: 12px 13px;
     justify-content: center;
-    gap: 10px;
+    align-items: center;
+    gap: 20px;
+    align-self: stretch; 
+    border-top: 1px solid #E6E6E6;
+    background: var(--Color, #FFF);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
   }
-
-  button {
-    padding: 4px 20px 5px;
-    font-family: 'Inter', system-ui, sans-serif;
-    font-size: 14px;
-    background-color:white;
-    border: 1px solid black;
+  #generate-button {
+    display: flex;
+    padding: 0 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex: 1 0 0;
     border-radius: 100px;
-    box-shadow: none;
+    height: 32px;
+    border: none;
+    color: #FFF;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 110%; /* 12.1px */
+  }
+  .disabled {
+    background: #D9D9D9;
+  }
+  .enabled {
+    background: #0ACF84;
+  }
+  .enabled:hover {
+    background: #08A166;
+    transition: 300ms;
   }
 
-  #create {
-    background-color: black;
-    color: white; 
-  }
+  /* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 150px;
+  background-color: #eee;
+  color: #000;
+  text-align: left;
+  padding: 10px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 150%;
+  top: 150%;
+  left: 50%;
+  margin-left: -36px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip a {
+  color: #000;
+  border-bottom: 1px solid #000;
+}
+
+.tooltip a:hover {
+  border-bottom: none;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltip .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;
+  left: 20%; /* To the left of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #eee transparent;
+}
+
 </style>
