@@ -1,3 +1,19 @@
+<!-- TO DO
+
+1. Get clamp URL input delete working. Currently it's deleting the wrong input 
+when multiple are selected and sometimes certain ones don't work.
+
+2. Parse clamp URL, make "Clamp URL" headline display the prefix, display root values
+beneath url, set up invalid URL checker, connect with .ts file to actually generate clamp spacers.
+
+3. Add default min/max modes if no modes are selected in URL
+
+4. Make scrolling experience better if main content window overflows
+
+5. Add window resizing ability
+
+-->
+
 <div class="content">
   <div class="main">
 
@@ -40,8 +56,8 @@
         <div id="invalid-url" class="hide">Invalid URL</div>
       </div>
     </div>
-    
-    <!--Clamp Link & Button-->
+
+    <!--WIP Clamp Link & Button
     <div class="clamp-link">
       <div id="clamp"><a>Add clamp URL</a></div>
       <div class="tooltip">
@@ -51,6 +67,8 @@
       </svg>
     </div>
     </div>
+    -->
+
   </div>
 
   <div class="button-bar">
@@ -189,13 +207,6 @@ document.getElementById('clamp').onclick = () => {
     border-radius: 2px;
     background: #FFF;
     font-family: 'Inter', system-ui, sans-serif;
-    /*
-    width: 250px;
-    height: 366px;
-    box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
-    margin: 0 auto;
-    margin-top: 100px; 
-    */
   }
   .main {
     display: flex;
